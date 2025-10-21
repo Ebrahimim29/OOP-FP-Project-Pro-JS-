@@ -12,11 +12,13 @@ class Product{
 }
 
 const p1 = new Product("لپ تاپ",1000000);
-const p2 = new Product("موبایل",5000000);
+const p2 = new Product("موبایل",50000000);
 const p3 = new Product("هدفون", 3000000);
+const p4 = new Product("مانیتور", 30000000);
+const p5 = new Product("پاوربانک", 1000000);
 
 //آرایه ای از محصولات--Composition
-const products = [p1,p2,p3];
+const products = [p1,p2,p3,p4,p5];
 
 //برنامه نویسی تابعی -- FP
 //Pure Function : افزایش قیمت هر محصول بدون تغییر شی اصلی (immutability)
@@ -41,4 +43,26 @@ function filterExpensive(products, minPrice){
 function totalPrice(products) {
     return products.reduce((sum,p) => sum + p.price , 0); //خروجی یک مقدار است
 }
-// part 252
+
+//OOP + FP :
+//افزایش قیمت همه محصولات ده درصد
+const increasedProducts = mapProducts(products, p => increasePrice(p,10));
+
+//فیلتر محصولات با قیمت بالای 20 میلیون
+const expensiveProducts = filterExpensive(increasedProducts, 20000000);
+
+//جمع قیمت محصولات گران
+const sumExpensive = totalPrice(expensiveProducts);
+
+// ---نمایش نتایج---
+console.log('محصولات اولیه:');
+products.forEach(p => console.log(p.display()));
+
+console.log('\n محصولات با افزایش قیمت:');
+increasedProducts.forEach(p => console.log(p.display()));
+
+console.log('\n محصولات گران تر از 20 میلیون');
+expensiveProducts.forEach(p => console.log(p.display()));
+
+console.log(`\n جمع قیمت محصولات گران: ${sumExpensive} تومان`);
+
